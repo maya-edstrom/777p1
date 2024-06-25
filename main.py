@@ -9,7 +9,7 @@ except:
     print('Failed to establish workspace')
     sys.exit()
 
-#step 1: aggregating/preparing the data
+#step 1: saving shapefiles to variables
 try: 
     cancer_tracts = "cancer.tracts.shp" # Open the cancer tracts shapefile and store in variable
 except:
@@ -28,3 +28,7 @@ try:
 except: 
     print('Failed to open shapefile')
     sys.exit()
+
+#step 2: interpolating nitrate values to census blocks
+
+
