@@ -8,10 +8,8 @@ import arcpy.sa
 
 arcpy.env.overwriteOutput = True # Allow the overwriting of the output files
 
-try:
-    arcpy.env.workspace = "C:\777p1\data" # Set the workspace
-except:
-    print('Failed to establish workspace')
+env.workspace = "C:\777p1\data" # Set the workspace
+
   
 
 #step 1: saving shapefiles to variables
