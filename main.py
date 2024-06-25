@@ -7,8 +7,9 @@ import arcpy.geoprocessing
 import arcpy.sa
 
 arcpy.env.overwriteOutput = True # Allow the overwriting of the output files
+outFolder = r"C:\777p1\output" # Set the output folder
 
-env.workspace = "C:\\777p1\\data" # Set the workspace
+env.workspace = r"C:\777p1\data" # Set the workspace
   
 #step 1: interpolating nitrate values to census blocks using IDW tool using different user inputs for k value
 
@@ -18,8 +19,9 @@ power = 2 #will need to get user input eventually
     
 # Execute IDW
 outIDW = Idw(inPoint, zField, power) # Perform the IDW interpolation using the input point feature class, the field to interpolate, and the power value
-# Save the output 
-outIDW.save("C:\\777p1\\data") # Save the output to the specified location
 
+# Save output
+IDW_OUT= os.path.join(outFolder, '{}.tif'.format)
+outIDW.save(IDW_OUT)
 print("IDW interpolation complete") # Print that the interpolation is complete
 
