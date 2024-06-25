@@ -39,7 +39,7 @@ except:
     outLayer = "IDW" # Set the output layer to IDW
     
     # Execute IDW
-    outIDW = arcpy.sa.IDW(inPointFeatures, zField, cellSize, power, searchRadius)
+    outIDW = arcpy.sa.Idw(inPoint, zField, power) # Perform the IDW interpolation using the input point feature class, the field to interpolate, and the power value
     # Save the output 
     outIDW.save("C:/sapyexamples/output/idwout02")
 
