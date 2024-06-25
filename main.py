@@ -13,15 +13,14 @@ env.workspace = r"C:\777p1\data" # Set the workspace
   
 #step 1: interpolating nitrate values to census blocks using IDW tool using different user inputs for k value
 
-inPoint = "well_nitrate.shp" # Set the input point feature class to the well nitrate shapefile
-zField = "nitr_ran"
+inPointFeatures = "well_nitrate.shp" # Set the input point feature class to the well nitrate shapefile
+cellSize = 2000.0
+zField = "TARGET_FIELD"
 power = 2 #will need to get user input eventually
+searchRadius = RadiusVariable
     
 # Execute IDW
-outIDW = Idw(inPoint, zField, power) # Perform the IDW interpolation using the input point feature class, the field to interpolate, and the power value
+outIDW = Idw(inPointFeatures, zField, cellSize, power, searchRadius)
 
-# Save output
-IDW_OUT= os.path.join(outFolder, '{}.tif'.format)
-outIDW.save(IDW_OUT)
-print("IDW interpolation complete") # Print that the interpolation is complete
-
+# Save the output 
+outIDW.save("C:/sapyexamples/output/idwout02")
