@@ -19,7 +19,7 @@ power = 2 #will need to get user input eventually
 # Execute IDW
 outIDW = Idw(inPoint, zField, power) # Perform the IDW interpolation using the input point feature class, the field to interpolate, and the power value
 # Save the output 
-outIDW.save("C:/777p1/data/idwout") # Save the output to the specified location
+outIDW.save("C:\777p1\data\idwout") # Save the output to the specified location
 
 print("IDW interpolation complete") # Print that the interpolation is complete
 
