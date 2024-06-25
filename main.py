@@ -7,7 +7,6 @@ import arcpy.geoprocessing
 import arcpy.sa
 
 arcpy.env.overwriteOutput = True # Allow the overwriting of the output files
-outFolder = r"C:\777p1\output" # Set the output folder
 
 env.workspace = r"C:\777p1\data" # Set the workspace
   
@@ -23,4 +22,4 @@ searchRadius = RadiusVariable
 outIDW = Idw(inPointFeatures, zField, cellSize, power, searchRadius)
 
 # Save the output 
-outIDW.save("C:/sapyexamples/output/idwout02")
+outIDW.save(r"C:\777p1\data\output")
