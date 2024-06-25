@@ -30,7 +30,7 @@ except:
 
 #step 2: interpolating nitrate values to census blocks using IDW tool using different user inputs for k value
 
-    k = int(input("Please enter a value between 0 and 2 for k: ")) # Ask the user to input a value for k
+    k = 2 #will need to get user input eventually
         
     inPoint = "well.nitrate.shp" # Set the input point feature class to the well nitrate shapefile
     zField = "nitr_ran"
