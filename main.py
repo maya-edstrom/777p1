@@ -33,11 +33,14 @@ except:
 try:
 
     k = int(input("Please enter a value between 0 and 2 for k: ")) # Ask the user to input a value for k
-
+        
+    inPoint = "well.nitrate.shp" # Set the input point feature class to the well nitrate shapefile
+    zField = "nitr_ran"
+    outLayer = "IDW" # Set the output layer to IDW
+    
+    IDW = arcpy.IDW_ga(inPoint, zField, outLayer, k) # Use the IDW tool to interpolate nitrate values 
+    print("IDW interpolation complete") # Print that the interpolation is complete
+    
 except:
     print('Failed to input value, please try again. Enter a value between 0 and 2.')
     sys.exit()
-
-IDW = arcpy.analysis.IDW(well_nitrate, "IDW.shp", "RASTERVALU", k) # Use the IDW tool to interpolate nitrate values to census blocks    
-
-
