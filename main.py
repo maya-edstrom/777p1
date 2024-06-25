@@ -36,6 +36,11 @@ except:
     zField = "nitr_ran"
     outLayer = "IDW" # Set the output layer to IDW
     
-    IDW = arcpy.IDW_ga(inPoint, zField, outLayer, k) # Use the IDW tool to interpolate nitrate values 
+    # Execute IDW
+    outIDW = Idw(inPointFeatures, zField, cellSize, power, searchRadius)
+
+    # Save the output 
+    outIDW.save("C:/sapyexamples/output/idwout02")
+
     print("IDW interpolation complete") # Print that the interpolation is complete
 
