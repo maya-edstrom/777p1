@@ -9,29 +9,8 @@ import arcpy.sa
 arcpy.env.overwriteOutput = True # Allow the overwriting of the output files
 
 env.workspace = "C:\777p1\data" # Set the workspace
-
   
-
-#step 1: saving shapefiles to variables
-try: 
-    cancer_tracts = "cancer.tracts.shp" # Open the cancer tracts shapefile and store in variable
-except:
-    print('Failed to open shapefile')
-
-
-try: 
-    well_nitrate = "well.nitrate.shp" # Open the well nitrate shapefile and store in variable
-except:
-    print('Failed to open shapefile')
-   
-try:
-    census_blocks = "WI_CensusTL_BlockGroups_2020.shp" # Open the census blocks shapefile and store in variable
-
-except: 
-    print('Failed to open shapefile')
- 
-
-#step 2: interpolating nitrate values to census blocks using IDW tool using different user inputs for k value
+#step 1: interpolating nitrate values to census blocks using IDW tool using different user inputs for k value
 
     power = 2 #will need to get user input eventually
     inPoint = "well.nitrate.shp" # Set the input point feature class to the well nitrate shapefile
