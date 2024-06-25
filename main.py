@@ -12,7 +12,7 @@ env.workspace = "C:\777p1\data" # Set the workspace
   
 #step 1: interpolating nitrate values to census blocks using IDW tool using different user inputs for k value
 
-inPoint = "well.nitrate.shp" # Set the input point feature class to the well nitrate shapefile
+inPoint = "well_nitrate.shp" # Set the input point feature class to the well nitrate shapefile
 zField = "nitr_ran"
 power = 2 #will need to get user input eventually
     
