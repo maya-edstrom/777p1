@@ -2,6 +2,7 @@ import arcpy
 import os, sys
 
 import arcpy.geoprocessing
+import arcpy.sa
 
 arcpy.env.overwriteOutput = True # Allow the overwriting of the output files
 
@@ -38,7 +39,7 @@ except:
     outLayer = "IDW" # Set the output layer to IDW
     
     # Execute IDW
-    outIDW = arcpy.geoprocessing.IDW(inPointFeatures, zField, cellSize, power, searchRadius)
+    outIDW = arcpy.sa.IDW(inPointFeatures, zField, cellSize, power, searchRadius)
     # Save the output 
     outIDW.save("C:/sapyexamples/output/idwout02")
 
