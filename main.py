@@ -29,6 +29,19 @@ except:
     print('Failed to open shapefile')
     sys.exit()
 
-#step 2: interpolating nitrate values to census blocks
+#step 2: interpolating nitrate values to census blocks using IDW tool using different user inputs for k value
+k = input("Enter a value for k: ") # Ask the user to input a value for k
+
+if k == 1: # If the user inputs 1 for k value
+    outIDW = arcpy.sa.Idw(well_nitrate, "nitr_ran", 1000, 2, "SQUARE", "CELLSIZE", 0.0001) # Use the IDW tool to interpolate nitrate values to census blocks using the well nitrate shapefile and the nitrate range field
+    outIDW.save("IDW_1.shp") # Save the output to a new shapefile
+
+elif k == 2: # If the user inputs 2 for k value
+    outIDW = arcpy.sa.Idw(well_nitrate, "nitr_ran", 1000, 2, "SQUARE", "CELLSIZE", 0.0001) # Use the IDW tool to interpolate nitrate values to census blocks using the well nitrate shapefile and the nitrate range field
+    outIDW.save("IDW_2.shp")
+
+elif k < 3: # If the user inputs 3 for k value
+
+
 
 
