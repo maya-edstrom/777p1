@@ -30,18 +30,14 @@ except:
     sys.exit()
 
 #step 2: interpolating nitrate values to census blocks using IDW tool using different user inputs for k value
-k = input("Enter a value for k: ") # Ask the user to input a value for k
+try:
 
-if k == 1: # If the user inputs 1 for k value
-    outIDW = arcpy.sa.Idw(well_nitrate, "nitr_ran", 1000, 2, "SQUARE", "CELLSIZE", 0.0001) # Use the IDW tool to interpolate nitrate values to census blocks using the well nitrate shapefile and the nitrate range field
-    outIDW.save("IDW_1.shp") # Save the output to a new shapefile
+    k = int(input("Please enter a value between 0 and 2 for k: ")) # Ask the user to input a value for k
 
-elif k == 2: # If the user inputs 2 for k value
-    outIDW = arcpy.sa.Idw(well_nitrate, "nitr_ran", 1000, 2, "SQUARE", "CELLSIZE", 0.0001) # Use the IDW tool to interpolate nitrate values to census blocks using the well nitrate shapefile and the nitrate range field
-    outIDW.save("IDW_2.shp")
+except:
+    print('Failed to input value, please try again. Enter a value between 0 and 2.')
+    sys.exit()
 
-elif k < 3: # If the user inputs 3 for k value
-
-
+IDW = arcpy.analysis.IDW(well_nitrate, "IDW.shp", "RASTERVALU", k) # Use the IDW tool to interpolate nitrate values to census blocks    
 
 
