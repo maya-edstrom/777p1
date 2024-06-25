@@ -30,7 +30,6 @@ except:
     sys.exit()
 
 #step 2: interpolating nitrate values to census blocks using IDW tool using different user inputs for k value
-try:
 
     k = int(input("Please enter a value between 0 and 2 for k: ")) # Ask the user to input a value for k
         
@@ -40,7 +39,4 @@ try:
     
     IDW = arcpy.IDW_ga(inPoint, zField, outLayer, k) # Use the IDW tool to interpolate nitrate values 
     print("IDW interpolation complete") # Print that the interpolation is complete
-    
-except:
-    print('Failed to input value, please try again. Enter a value between 0 and 2.')
-    sys.exit()
+
