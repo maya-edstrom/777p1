@@ -1,4 +1,13 @@
+import arcpy 
+from arcpy import env
+from arcpy.sa import *
+import os, sys
+
+import arcpy.geoprocessing
+import arcpy.sa
+
 from tkinter import *
+env.workspace = r"C:\777p1" # Set the workspace
 
 root = Tk()
 
