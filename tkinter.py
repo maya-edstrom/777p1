@@ -9,4 +9,4 @@ pgTitle = Label(root, text="Cancer Rates vs. Nitrate Concentrations")
 pgTitle.pack()
 
 #create event loop
-root.mainLoop() 
+root.mainloop() 
