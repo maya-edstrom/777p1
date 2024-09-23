@@ -7,12 +7,13 @@ import arcpy.geoprocessing
 import arcpy.sa
 
 import tkinter as tk
+
 env.workspace = r"C:\777p1" # Set the workspace
 
-root = Tk()
+root = tk.Tk()
 
 #creating a label widget
-pgTitle = Label(root, text="Cancer Rates vs. Nitrate Concentrations")
+pgTitle = tk.Label(root, text="Cancer Rates vs. Nitrate Concentrations")
 
 #shoving it onto the screen
 pgTitle.pack()
