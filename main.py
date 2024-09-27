@@ -6,20 +6,22 @@ import os, sys
 import arcpy.geoprocessing
 import arcpy.sa
 
-arcpy.env.overwriteOutput = True # Allow the overwriting of the output files
+import tkinter as tk
 
-env.workspace = r"C:\777p1\data" # Set the workspace
-  
-#step 1: interpolating nitrate values to census blocks using IDW tool using different user inputs for k value
+import tkinter as tk
+root = tk.Tk()
+print("Tkinter is installed and working!")
+root.destroy()
 
-inPointFeatures = "well_nitrate.shp" # Set the input point feature class to the well nitrate shapefile
-cellSize = 2000.0
-zField = "TARGET_FIELD"
-power = 2 #will need to get user input eventually
-searchRadius = RadiusVariable
-    
-# Execute IDW
-outIDW = Idw(inPointFeatures, zField, cellSize, power, searchRadius)
+env.workspace = r"C:\777p1" # Set the workspace
 
-# Save the output 
-outIDW.save(r"C:\777p1\data\output")
+root = tk.Tk()
+
+#creating a label widget
+pgTitle = tk.Label(root, text="Cancer Rates vs. Nitrate Concentrations")
+
+#shoving it onto the screen
+pgTitle.pack()
+
+#create event loop
+root.mainloop() 
