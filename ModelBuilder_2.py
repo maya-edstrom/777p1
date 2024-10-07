@@ -29,8 +29,7 @@ def Model():  # Model
     # Process: Zonal Statistics as Table (Zonal Statistics as Table) (sa)
     CancerZonalStats = "C:\\777p1\\CancerZonalStats"
     Output_Join_Layer = ""
-    Zonal_Statistics_as_Table = arcpy.sa.ZonalStatisticsAsTable(cancer_tracts_OG, "GEOID10", nitrate_IDW, CancerZonalStats, "DATA", "ALL", "CURRENT_SLICE", [90], "AUTO_DETECT", "ARITHMETIC", 360, Output_Join_Layer)
-    Zonal_Statistics_as_Table.save(CancerZonalStats)
+    arcpy.sa.ZonalStatisticsAsTable(cancer_tracts_OG, "GEOID10", nitrate_IDW, CancerZonalStats, "DATA", "ALL", "CURRENT_SLICE", [90], "AUTO_DETECT", "ARITHMETIC", 360, Output_Join_Layer)
 
     # Process: Add Join (Add Join) (management)
     cancer_tracts_OG_2_ = arcpy.management.AddJoin(in_layer_or_view=cancer_tracts_OG_3_, in_field="GEOID10", join_table=CancerZonalStats, join_field="GEOID10")[0]
