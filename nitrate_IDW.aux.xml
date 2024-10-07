@@ -1,8 +1,0 @@
-<PAMDataset>
-  <PAMRasterBand band="1">
-    <Description>nitrate_IDW</Description>
-    <Metadata>
-      <MDI key="RepresentationType">ATHEMATIC</MDI>
-    </Metadata>
-  </PAMRasterBand>
-</PAMDataset>
