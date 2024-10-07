@@ -23,7 +23,6 @@ well_nitrate_OG = "well_nitrate_OG"
 cancer_tracts_OG_3_ = "cancer_tracts_OG"
 
  # Process: IDW (IDW) (sa)
-
 def idw():
     nitrate_IDW = "C:\\777p1\\nitrate_IDW"
     IDW = nitrate_IDW
