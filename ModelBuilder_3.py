@@ -24,7 +24,7 @@ cancer_tracts_OG_3_ = "cancer_tracts_OG"
 
  # Process: IDW (IDW) (sa)
 def idw():
-    nitrate_IDW = "C:\\777p1\\nitrate_IDW"
+    nitrate_IDW = "IDW.tif"
     IDW = nitrate_IDW
     nitrate_IDW = arcpy.sa.Idw(well_nitrate_OG, "nitr_ran", "0.017616319278512", 2, "VARIABLE 12", "")
     nitrate_IDW.save(IDW)
