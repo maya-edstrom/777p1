@@ -9,7 +9,7 @@ from arcpy.sa import *
 def Model():  # Model
 
     # To allow overwriting outputs change overwriteOutput option to True.
-    arcpy.env.overwriteOutput = False
+    arcpy.env.overwriteOutput = True
 
     # Check out any necessary licenses.
     arcpy.CheckOutExtension("3D")
@@ -31,8 +31,7 @@ def Model():  # Model
     # Process: Zonal Statistics as Table (Zonal Statistics as Table) (sa)
     CancerZonalStats = "C:\\777p1\\CancerZonalStats"
     Output_Join_Layer = ""
-    arcpy.sa.ZonalStatisticsAsTable(cancer_tracts_OG, "GEOID10", nitrate_IDW, CancerZonalStats, "DATA", "ALL", "CURRENT_SLICE", [90], "AUTO_DETECT", "ARITHMETIC", 360, Output_Join_Layer)
-    .save(Zonal_Statistics_as_Table)
+    arcpy.sa.ZonalStatisticsAsTable(cancer_tracts_OG, "GEOID10", nitrate_IDW, CancerZonalStats, "DATA", "ALL", "CURRENT_SLICE", [90], "AUTO_DETECT", "ARITHMETIC", 360, Output_Join_Layer) #.save(Zonal_Statistics_as_Table)
 
 
     # Process: Add Join (Add Join) (management)
