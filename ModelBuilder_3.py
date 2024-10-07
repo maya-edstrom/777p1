@@ -32,19 +32,22 @@ def idw():
 
 # Process: Zonal Statistics as Table (Zonal Statistics as Table) (sa)
 def zonalStats():
-    CancerZonalStats = "C:\\777p1\\CancerZonalStats"
+    global CancerZonalStats
+    CancerZonalStats = "CancerZonalStats.dbf"
     Output_Join_Layer = ""
     arcpy.sa.ZonalStatisticsAsTable(cancer_tracts_OG, "GEOID10", nitrate_IDW, CancerZonalStats, "DATA", "ALL", "CURRENT_SLICE", [90], "AUTO_DETECT", "ARITHMETIC", 360, Output_Join_Layer)
     .save(Zonal_Statistics_as_Table)
 
   # Process: Add Join (Add Join) (management)
 def addJoin():
+    global cancer_tracts_OG_2_
     cancer_tracts_OG_2_ = arcpy.management.AddJoin(in_layer_or_view=cancer_tracts_OG_3_, in_field="GEOID10", join_table=CancerZonalStats, join_field="GEOID10")[0]
 
  # Process: Ordinary Least Squares (OLS) (Ordinary Least Squares (OLS)) (stats)
-def ols():   
-    OLS_fc_shp = "C:\\777p1\\OLS_fc.shp"
+def ols():
+    global OLS_fc_shp   
+    OLS_fc_shp = "OLS_fc.shp"
     Coefficient_Output_Table = ""
     Diagnostic_Output_Table = ""
-    OLS_Report = "C:\\777p1\\OLS_Report.pdf"
+    OLS_Report = "OLS_Report.pdf"
     arcpy.stats.OrdinaryLeastSquares(Input_Feature_Class=cancer_tracts_OG_2_, Unique_ID_Field="CancerZonalStats.ZONE_CODE", Output_Feature_Class=OLS_fc_shp, Dependent_Variable="cancer_tracts_OG.canrate", Explanatory_Variables=["CancerZonalStats.MEAN"], Coefficient_Output_Table=Coefficient_Output_Table, Diagnostic_Output_Table=Diagnostic_Output_Table, Output_Report_File=OLS_Report)
