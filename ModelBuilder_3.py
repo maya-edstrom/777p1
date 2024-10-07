@@ -15,6 +15,9 @@ arcpy.CheckOutExtension("spatial")
 arcpy.CheckOutExtension("ImageExt")
 arcpy.CheckOutExtension("ImageAnalyst")
 
+# Set the workspace
+arcpy.env.workspace = r"C:\777p1" # Set the workspace
+
 cancer_tracts_OG = "cancer_tracts_OG"
 well_nitrate_OG = "well_nitrate_OG"
 cancer_tracts_OG_3_ = "cancer_tracts_OG"
