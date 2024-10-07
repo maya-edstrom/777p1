@@ -21,26 +21,28 @@ arcpy.env.workspace = r"C:\777p1" # Set the workspace
 cancer_tracts_OG = "cancer_tracts_OG"
 well_nitrate_OG = "well_nitrate_OG"
 cancer_tracts_OG_3_ = "cancer_tracts_OG"
+
+ # Process: IDW (IDW) (sa)
+
 def idw():
-    # Process: IDW (IDW) (sa)
     nitrate_IDW = "C:\\777p1\\nitrate_IDW"
     IDW = nitrate_IDW
     nitrate_IDW = arcpy.sa.Idw(well_nitrate_OG, "nitr_ran", "0.017616319278512", 2, "VARIABLE 12", "")
     nitrate_IDW.save(IDW)
 
+# Process: Zonal Statistics as Table (Zonal Statistics as Table) (sa)
 def zonalStats():
-    # Process: Zonal Statistics as Table (Zonal Statistics as Table) (sa)
     CancerZonalStats = "C:\\777p1\\CancerZonalStats"
     Output_Join_Layer = ""
     arcpy.sa.ZonalStatisticsAsTable(cancer_tracts_OG, "GEOID10", nitrate_IDW, CancerZonalStats, "DATA", "ALL", "CURRENT_SLICE", [90], "AUTO_DETECT", "ARITHMETIC", 360, Output_Join_Layer)
     .save(Zonal_Statistics_as_Table)
 
+  # Process: Add Join (Add Join) (management)
 def addJoin():
-    # Process: Add Join (Add Join) (management)
     cancer_tracts_OG_2_ = arcpy.management.AddJoin(in_layer_or_view=cancer_tracts_OG_3_, in_field="GEOID10", join_table=CancerZonalStats, join_field="GEOID10")[0]
 
-def ols():
-    # Process: Ordinary Least Squares (OLS) (Ordinary Least Squares (OLS)) (stats)
+ # Process: Ordinary Least Squares (OLS) (Ordinary Least Squares (OLS)) (stats)
+def ols():   
     OLS_fc_shp = "C:\\777p1\\OLS_fc.shp"
     Coefficient_Output_Table = ""
     Diagnostic_Output_Table = ""
