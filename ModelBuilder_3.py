@@ -36,8 +36,7 @@ def zonalStats():
     CancerZonalStats = "CancerZonalStats.dbf"
     Output_Join_Layer = ""
     arcpy.sa.ZonalStatisticsAsTable(cancer_tracts_OG, "GEOID10", nitrate_IDW, CancerZonalStats, "DATA", "ALL", "CURRENT_SLICE", [90], "AUTO_DETECT", "ARITHMETIC", 360, Output_Join_Layer)
-    .save(Zonal_Statistics_as_Table)
-
+  
   # Process: Add Join (Add Join) (management)
 def addJoin():
     global cancer_tracts_OG_2_
