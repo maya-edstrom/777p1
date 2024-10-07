@@ -9,7 +9,7 @@ from arcpy.sa import *
 def Model():  # Model
 
     # To allow overwriting outputs change overwriteOutput option to True.
-    arcpy.env.overwriteOutput = False
+    arcpy.env.overwriteOutput = True
 
     # Check out any necessary licenses.
     arcpy.CheckOutExtension("3D")
