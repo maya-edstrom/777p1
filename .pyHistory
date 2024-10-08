@@ -1,0 +1,6 @@
+﻿aprx = arcpy.mp.ArcGISProject("CURRENT")
+aprx.defaultGeodatabase = r"C:\777p1\ArcGISPro\Geog777_P1\Geog777_P1.gdb"
+aprx.save()
+print(aprx.filePath)
+m = aprx.listMaps("Map")[0] lyrFile = arcpy.mp.LayerFile(r"C:\777p1\ArcGISPro\Geog777_P1\Geog777_P1.gdb\OLS_fc") m.addLayer(lyrFile, "TOP")
+m = aprx.listMaps("Map")[0] lyrFile = arcpy.mp.LayerFile(r"C:\777p1\ArcGISPro\Geog777_P1\Geog777_P1.gdb\OLS_fc.lyrx") m.addLayer(lyrFile, "TOP")
