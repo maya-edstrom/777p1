@@ -44,10 +44,6 @@ def Model():  # Model
     OLS_Report = "C:\\777p1\\ArcGISPro\\Geog777_P1\\OLS_Report.pdf"
     arcpy.stats.OrdinaryLeastSquares(Input_Feature_Class=cancer_tracts_OG_2_, Unique_ID_Field="CancerZonalStats.ZONE_CODE", Output_Feature_Class=OLS_fc_shp, Dependent_Variable="cancer_tracts_OG.canrate", Explanatory_Variables=["CancerZonalStats.MEAN"], Coefficient_Output_Table=Coefficient_Output_Table, Diagnostic_Output_Table=Diagnostic_Output_Table, Output_Report_File=OLS_Report)
 
-    # Process: Save To Layer File (Save To Layer File) (management)
-    OLS_fc_layer_lyrx = "C:\\777p1\\ArcGISPro\\Geog777_P1\\OLS_fc_layer.lyrx"
-    arcpy.management.SaveToLayerFile(in_layer=OLS_fc_shp, out_layer=OLS_fc_layer_lyrx)
-
 if __name__ == '__main__':
     # Global Environment settings
     with arcpy.EnvManager(scratchWorkspace="C:\\777p1\\ArcGISPro\\Geog777_P1\\Geog777_P1.gdb", workspace="C:\\777p1\\ArcGISPro\\Geog777_P1\\Geog777_P1.gdb"):
