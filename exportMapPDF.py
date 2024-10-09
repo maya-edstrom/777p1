@@ -9,3 +9,5 @@ m = aprx.listMaps("Map")[0]
 lyrFile = arcpy.mp.LayerFile(r"C:\777p1\ArcGISPro\Geog777_P1\OLS_fc_SaveToLayerFile.lyrx")
 m.addLayer(lyrFile, "TOP")
 
+lyt = aprx.listLayouts("Layout")[0]
+lyt.exportToPDF(r"C:\777p1\OLS_Map.pdf")
