@@ -1,27 +1,35 @@
-import arcpy 
-from arcpy import env
+import arcpy
 from arcpy.sa import *
-import os, sys
-
-import arcpy.geoprocessing
-import arcpy.sa
 
 import tkinter as tk
 
-
 root = tk.Tk()
-print("Tkinter is installed and working!")
-root.destroy()
+root.title("Linear Regression Analysis of Cancer Rates vs. Nitrate Concentrations in Wisconsin")
 
-env.workspace = r"C:\777p1" # Set the workspace
+def userClick():
+    userInputValue = userInput.get()
+    print(userInputValue)
+        
 
-root = tk.Tk()
-
-#creating a label widget
-pgTitle = tk.Label(root, text="Spatial Analysis of Cancer Rates vs. Nitrate Concentrations in Wisconsin using Linear Regression")
-
-#shoving it onto the screen
+# Creating a label widget
+pgTitle = tk.Label(root, text="Linear Regression Analysis of Cancer Rates \nvs. Nitrate Concentrations in Wisconsin", font=("Helvetica", 16))
 pgTitle.pack()
 
-#create event loop
-root.mainloop() 
+# Creating a label for the entry widget
+entryLabel = tk.Label(root, text="Enter a value K > 0", font=("Helvetica", 12))
+entryLabel.pack(anchor='center', padx=10)
+
+# Creating entry widget
+userInput = tk.Entry(root, borderwidth=3)
+userInput.pack()
+userInput.insert(2, "2")
+kValue = (userInput.get())
+print(kValue)
+
+# Creating a button widget
+myButton = tk.Button(root, text="Run IDW", command=userClick)
+myButton.pack()
+
+# Create event loop
+root.mainloop()
+
