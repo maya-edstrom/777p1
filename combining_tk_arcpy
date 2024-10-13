@@ -37,14 +37,13 @@ def Model():  # Model
     OLS_fc_shp = "OLS_fc"
     Coefficient_Output_Table = ""
     Diagnostic_Output_Table = ""
-    OLS_Report = "C:\\777p1\\ArcGISPro\\Geog777_P1\\OLS_Report.pdf"
+    OLS_Report = "C:\\777p1\\OLS_Report.pdf"
     arcpy.stats.OrdinaryLeastSquares(Input_Feature_Class=cancer_tracts_OG_2_, Unique_ID_Field="CancerZonalStats.ZONE_CODE", Output_Feature_Class=OLS_fc_shp, Dependent_Variable="cancer_tracts_OG.canrate", Explanatory_Variables=["CancerZonalStats.MEAN"], Coefficient_Output_Table=Coefficient_Output_Table, Diagnostic_Output_Table=Diagnostic_Output_Table, Output_Report_File=OLS_Report)
 
     
     aprx = arcpy.mp.ArcGISProject(r"C:\777p1\ArcGISPro\Geog777_P1\Geog777_P1.aprx")
     aprx.defaultGeodatabase = r"C:\777p1\ArcGISPro\Geog777_P1\Geog777_P1.gdb"
-    print(aprx.filePath)
-
+ 
     m = aprx.listMaps("Map")[0]
     lyrFile = arcpy.mp.LayerFile(r"C:\777p1\ArcGISPro\Geog777_P1\OLS_fc_SaveToLayerFile.lyrx")
     m.addLayer(lyrFile, "TOP")
@@ -52,7 +51,7 @@ def Model():  # Model
     lyt = aprx.listLayouts("Layout")[0]
     lyt.exportToPDF(r"C:\777p1\OLS_Map.pdf")
 
-    
+
 def userClick():
     userInputValue = userInput.get()
     global kValue
