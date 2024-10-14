@@ -10,9 +10,10 @@ root.title("Linear Regression Analysis of Cancer Rates vs. Nitrate Concentration
 
 
 def restart_program():
-            python = sys.executable
-            os.execl(python, python, * sys.argv)
-   
+    python = sys.executable
+    os.execl(python, python, *sys.argv)
+
+
 def Model():  # Model
     # To allow overwriting outputs change overwriteOutput option to True.
     arcpy.env.overwriteOutput = True
@@ -48,10 +49,9 @@ def Model():  # Model
     OLS_Report = "C:\\777p1\\OLS_Report.pdf"
     arcpy.stats.OrdinaryLeastSquares(Input_Feature_Class=cancer_tracts_OG_2_, Unique_ID_Field="CancerZonalStats.ZONE_CODE", Output_Feature_Class=OLS_fc_shp, Dependent_Variable="cancer_tracts_OG.canrate", Explanatory_Variables=["CancerZonalStats.MEAN"], Coefficient_Output_Table=Coefficient_Output_Table, Diagnostic_Output_Table=Diagnostic_Output_Table, Output_Report_File=OLS_Report)
 
-    
     aprx = arcpy.mp.ArcGISProject(r"C:\777p1\ArcGISPro\Geog777_P1\Geog777_P1.aprx")
     aprx.defaultGeodatabase = r"C:\777p1\ArcGISPro\Geog777_P1\Geog777_P1.gdb"
- 
+
     m = aprx.listMaps("Map")[0]
     lyrFile = arcpy.mp.LayerFile(r"C:\777p1\ArcGISPro\Geog777_P1\OLS_fc_SaveToLayerFile.lyrx")
     m.addLayer(lyrFile, "TOP")
@@ -59,7 +59,7 @@ def Model():  # Model
     lyt = aprx.listLayouts("Layout")[0]
     lyt.exportToPDF(r"C:\777p1\OLS_Map.pdf")
     print("OLS Map PDF exported successfully")
-   
+
 
 def userClick():
     userInputValue = userInput.get()
@@ -75,28 +75,33 @@ def userClick():
         with arcpy.EnvManager(scratchWorkspace="C:\\777p1\\ArcGISPro\\Geog777_P1\\Geog777_P1.gdb", workspace="C:\\777p1\\ArcGISPro\\Geog777_P1\\Geog777_P1.gdb"):
             Model()
 
+
 if __name__ == '__main__':
     # Creating a label widget
     pgTitle = tk.Label(root, text="Linear Regression Analysis of Cancer Rates \nvs. Nitrate Concentrations in Wisconsin", font=("Helvetica", 16))
-    pgTitle.pack()
+    pgTitle.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
 
     # Creating a label for the entry widget
-    entryLabel = tk.Label(root, text="Enter a value K > 0", font=("Helvetica", 12))
-    entryLabel.pack(anchor='center', padx=10)
+    entryLabel = tk.Label(root, text="Enter a value K > 0", font=("Helvetica", 14, "bold"))
+    entryLabel.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
 
     # Creating entry widget
-    userInput = tk.Entry(root, width=20, borderwidth=3)
-    userInput.pack()
+    userInput = tk.Entry(root, width=5, borderwidth=3)
+    userInput.grid(row=2, column=0, columnspan=2,  padx=10, pady=10)
     userInput.insert(2, "2")
     kValue = int(userInput.get())
-  
-    # Creating a button widget
-    myButton = tk.Button(root, text="Run IDW and OLS Analysis", command=userClick)
-    myButton.pack()
 
-    #Creating restart button widget
-    restartButton = tk.Button(root, text="Restart", command=restart_program)
-    restartButton.pack()
+    # Creating a button widget
+    myButton = tk.Button(root, text="Run IDW and OLS Analysis", command=userClick, bg="light green", font=("Helvetica", 12))
+    myButton.grid(row=3, column=0, columnspan=2, padx=0, pady=10)
+
+    # Creating restart button widget
+    restartButton = tk.Button(root, text="Restart", command=restart_program, bg="red", font=("Helvetica", 12))
+    restartButton.grid(row=4, column=0, columnspan=2, padx=0, pady=10)
+
+    # Configure column weights for centering
+    root.grid_columnconfigure(0, weight=1)
+    root.grid_columnconfigure(1, weight=1)
 
     # Create event loop
     root.mainloop()
