@@ -12,7 +12,7 @@ root.title("Linear Regression Analysis of Cancer Rates vs. Nitrate Concentration
 
 def restart_program():
     python = sys.executable
-    os.execl(python, python, *sys.argv)
+    os.execl(python, f'"{python}"', *sys.argv)
 
 def Model():  # Model
     global well_label, well_image
@@ -36,7 +36,7 @@ def Model():  # Model
 
     # Process: IDW (IDW) (sa)
     nitrate_IDW = "nitrate_IDW"
-    IDW = nitrate_IDW
+    IDW = os.path.join(arcpy.env.workspace, f"nitrate_IDW_{int(time.time())}")  # Use a unique name
     nitrate_IDW = arcpy.sa.Idw(well_nitrate_OG, "nitr_ran", "0.017616319278512", kValue, "VARIABLE 12", "")
     nitrate_IDW.save(IDW)
 
@@ -82,23 +82,22 @@ def Model():  # Model
     progress_bar['value'] = 100
     root.update_idletasks()
 
-    # Update image after OLS is completed
-    ols_image = Image.open(r"C:\777p1\ArcGISPro\Geog777_P1\combined_jpg.jpg")
-    resized_ols_image = ols_image.resize((700, 450))
-    well_image = ImageTk.PhotoImage(resized_ols_image)
-    well_label.config(image=well_image)
-    well_label.image = well_image
+    if progress_bar['value'] == 100:
+        messagebox.showinfo("Success", "IDW & OLS Analysis completed successfully. Please check the output PDF file.")
 
 def userClick():
     userInputValue = userInput.get()
     global kValue
-    kValue = int(userInputValue)
+    try:
+        kValue = int(userInputValue)
+    except ValueError:
+        messagebox.showerror("Error", "Please enter a valid integer value for K")
+        return
 
     if kValue <= 0:
+        messagebox.showerror("Error", "Please enter a value greater than 0")
         print("Please enter a value greater than 0")
-        restart_program()
-
-    elif kValue > 0:
+    else:
         # Global Environment settings
         with arcpy.EnvManager(scratchWorkspace="C:\\777p1\\ArcGISPro\\Geog777_P1\\Geog777_P1.gdb", workspace="C:\\777p1\\ArcGISPro\\Geog777_P1\\Geog777_P1.gdb"):
             Model()
@@ -116,14 +115,14 @@ if __name__ == '__main__':
     well_label.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
 
     # Creating a label for the entry widget
-    entryLabel = tk.Label(root, text="Enter a value K > 0", font=("Helvetica", 14, "bold"))
+    entryLabel = tk.Label(root, text="Enter a value K > 0", font=("Helvetica", 12, "bold"))
     entryLabel.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
     # Creating entry widget
     userInput = tk.Entry(root, width=5, borderwidth=3)
     userInput.grid(row=3, column=0, columnspan=2,  padx=10, pady=10)
-    userInput.insert(2, "2")
-    kValue = int(userInput.get())
+    # Remove the line that inserts "2" by default
+    # userInput.insert(2, "2")  # This line is removed
 
     # Creating a button widget
     myButton = tk.Button(root, text="Run IDW and OLS Analysis", command=userClick, bg="light green", font=("Helvetica", 12))
