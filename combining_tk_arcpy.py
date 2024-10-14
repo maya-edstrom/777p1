@@ -1,20 +1,22 @@
 import arcpy
 from arcpy.sa import *
 import tkinter as tk
+from tkinter import ttk
 import os
 import sys
 from PIL import ImageTk, Image
+from tkinter import messagebox
 
 root = tk.Tk()
 root.title("Linear Regression Analysis of Cancer Rates vs. Nitrate Concentrations in Wisconsin")
-
 
 def restart_program():
     python = sys.executable
     os.execl(python, python, *sys.argv)
 
-
 def Model():  # Model
+    global well_label, well_image
+
     # To allow overwriting outputs change overwriteOutput option to True.
     arcpy.env.overwriteOutput = True
 
@@ -28,19 +30,35 @@ def Model():  # Model
     well_nitrate_OG = "well_nitrate_OG"
     cancer_tracts_OG_3_ = "cancer_tracts_OG"
 
+    # Update progress bar
+    progress_bar['value'] = 20
+    root.update_idletasks()
+
     # Process: IDW (IDW) (sa)
     nitrate_IDW = "nitrate_IDW"
     IDW = nitrate_IDW
     nitrate_IDW = arcpy.sa.Idw(well_nitrate_OG, "nitr_ran", "0.017616319278512", kValue, "VARIABLE 12", "")
     nitrate_IDW.save(IDW)
 
+    # Update progress bar
+    progress_bar['value'] = 40
+    root.update_idletasks()
+
     # Process: Zonal Statistics as Table (Zonal Statistics as Table) (sa)
     CancerZonalStats = "CancerZonalStats"
     Output_Join_Layer = ""
     arcpy.sa.ZonalStatisticsAsTable(cancer_tracts_OG, "GEOID10", nitrate_IDW, CancerZonalStats, "DATA", "ALL", "CURRENT_SLICE", [90], "AUTO_DETECT", "ARITHMETIC", 360, Output_Join_Layer)
 
+    # Update progress bar
+    progress_bar['value'] = 60
+    root.update_idletasks()
+
     # Process: Add Join (Add Join) (management)
     cancer_tracts_OG_2_ = arcpy.management.AddJoin(in_layer_or_view=cancer_tracts_OG_3_, in_field="GEOID10", join_table=CancerZonalStats, join_field="GEOID10")[0]
+
+    # Update progress bar
+    progress_bar['value'] = 80
+    root.update_idletasks()
 
     # Process: Ordinary Least Squares (OLS) (Ordinary Least Squares (OLS)) (stats)
     OLS_fc_shp = "OLS_fc"
@@ -60,6 +78,16 @@ def Model():  # Model
     lyt.exportToPDF(r"C:\777p1\OLS_Map.pdf")
     print("OLS Map PDF exported successfully")
 
+    # Update progress bar
+    progress_bar['value'] = 100
+    root.update_idletasks()
+
+    # Update image after OLS is completed
+    ols_image = Image.open(r"C:\777p1\ArcGISPro\Geog777_P1\combined_jpg.jpg")
+    resized_ols_image = ols_image.resize((700, 450))
+    well_image = ImageTk.PhotoImage(resized_ols_image)
+    well_label.config(image=well_image)
+    well_label.image = well_image
 
 def userClick():
     userInputValue = userInput.get()
@@ -75,29 +103,39 @@ def userClick():
         with arcpy.EnvManager(scratchWorkspace="C:\\777p1\\ArcGISPro\\Geog777_P1\\Geog777_P1.gdb", workspace="C:\\777p1\\ArcGISPro\\Geog777_P1\\Geog777_P1.gdb"):
             Model()
 
-
 if __name__ == '__main__':
     # Creating a label widget
     pgTitle = tk.Label(root, text="Linear Regression Analysis of Cancer Rates \nvs. Nitrate Concentrations in Wisconsin", font=("Helvetica", 16))
     pgTitle.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
 
+    # Adding well image
+    original_image1 = Image.open(r"C:\777p1\ArcGISPro\Geog777_P1\Well_JPG_2.jpg")
+    resized_image1 = original_image1.resize((600, 450))  # Resize the image 
+    well_image = ImageTk.PhotoImage(resized_image1)
+    well_label = tk.Label(image=well_image)
+    well_label.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+
     # Creating a label for the entry widget
     entryLabel = tk.Label(root, text="Enter a value K > 0", font=("Helvetica", 14, "bold"))
-    entryLabel.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+    entryLabel.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
     # Creating entry widget
     userInput = tk.Entry(root, width=5, borderwidth=3)
-    userInput.grid(row=2, column=0, columnspan=2,  padx=10, pady=10)
+    userInput.grid(row=3, column=0, columnspan=2,  padx=10, pady=10)
     userInput.insert(2, "2")
     kValue = int(userInput.get())
 
     # Creating a button widget
     myButton = tk.Button(root, text="Run IDW and OLS Analysis", command=userClick, bg="light green", font=("Helvetica", 12))
-    myButton.grid(row=3, column=0, columnspan=2, padx=0, pady=10)
+    myButton.grid(row=4, column=0, columnspan=2, padx=5, pady=1)
+
+    # Creating progress bar
+    progress_bar = ttk.Progressbar(root, orient='horizontal', length=200, mode='determinate')
+    progress_bar.grid(row=5, column=0, columnspan=2, padx=5, pady=1)
 
     # Creating restart button widget
     restartButton = tk.Button(root, text="Restart", command=restart_program, bg="red", font=("Helvetica", 12))
-    restartButton.grid(row=4, column=0, columnspan=2, padx=0, pady=10)
+    restartButton.grid(row=6, column=0, columnspan=2, padx=0, pady=10)
 
     # Configure column weights for centering
     root.grid_columnconfigure(0, weight=1)
